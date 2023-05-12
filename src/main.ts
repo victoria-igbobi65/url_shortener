@@ -4,7 +4,7 @@ import { ValidationPipe } from '@nestjs/common';
 
 import { AppModule } from './app.module';
 import CONFIG from './common/config/config';
-import { E_TOO_MANY_REQUEST } from './common/error/exception';
+import { E_TOO_MANY_REQUEST } from './common/constants.text';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, { cors: true });
