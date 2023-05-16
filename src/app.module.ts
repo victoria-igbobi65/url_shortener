@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
+import { UrlModule } from './url/url.module';
 
 @Module({
   imports: [
@@ -12,6 +13,7 @@ import { MongooseModule } from '@nestjs/mongoose';
       useUnifiedTopology: true,
       useNewUrlParser: true,
     }),
+    UrlModule,
   ],
   controllers: [],
   providers: [],
