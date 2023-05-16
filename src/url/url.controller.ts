@@ -6,9 +6,11 @@ import {
   Patch,
   Param,
   Delete,
+  Res,
 } from '@nestjs/common';
 import { UrlService } from './url.service';
 import { CreateUrlDto } from './dto/create-url.dto';
+import { Response } from 'express';
 
 @Controller('url')
 export class UrlController {
@@ -24,9 +26,13 @@ export class UrlController {
     return this.urlService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.urlService.findOne(+id);
+  @Get(':shortCode')
+  async handleRedirect(
+    @Param('shortCode') shortCode: string,
+    @Res() res: Response,
+  ) {
+    const url = await this.urlService.getLongUrl(shortCode);
+    return res.redirect(301, url.longUrl);
   }
 
   @Patch(':id')
