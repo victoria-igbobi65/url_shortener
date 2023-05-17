@@ -20,3 +20,4 @@ export class Url extends Document {
 }
 
 export const shortUrlSchema = SchemaFactory.createForClass(Url);
+shortUrlSchema.index({ shortId: 1, longUrl: 1 });
