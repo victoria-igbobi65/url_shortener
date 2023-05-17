@@ -29,7 +29,7 @@ export class UrlController {
   }
 
   @Get(':id')
-  async GetUrlInfo(@Param() id: GetLinkDto) {
+  async GetUrlInfo(@Param() { id }: GetLinkDto) {
     return this.urlService.findone(id);
   }
 
