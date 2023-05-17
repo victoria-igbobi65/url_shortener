@@ -30,6 +30,7 @@ export class GlobalExceptionFilter implements ExceptionFilter {
         },
       });
     } else {
+      console.log(exception);
       return response.status(500).json({
         error: {
           message: 'Internal server error',
