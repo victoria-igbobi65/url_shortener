@@ -7,10 +7,12 @@ import {
   Param,
   Delete,
   Res,
+  Req,
 } from '@nestjs/common';
 import { UrlService } from './url.service';
 import { CreateUrlDto } from './dto/create-url.dto';
-import { Response } from 'express';
+import { Request, Response } from 'express';
+import { GetLinkDto } from './dto/get-link-info.dto';
 
 @Controller('url')
 export class UrlController {
@@ -26,12 +28,21 @@ export class UrlController {
     return this.urlService.findAll();
   }
 
+  @Get(':id')
+  async GetUrlInfo(@Param() id: GetLinkDto) {
+    return this.urlService.findone(id);
+  }
+
   @Get(':shortCode')
   async handleRedirect(
     @Param('shortCode') shortCode: string,
     @Res() res: Response,
-  ) {
-    const url = await this.urlService.getLongUrl(shortCode);
+    @Req() req: Request,
+  ): Promise<void> {
+    const ip = req.ip,
+      agent = req.headers['user-agent'];
+
+    const url = await this.urlService.getLongUrl(shortCode, ip, agent);
     return res.redirect(301, url.longUrl);
   }
 
