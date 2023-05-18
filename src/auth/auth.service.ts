@@ -5,7 +5,10 @@ import { Model } from 'mongoose';
 
 import { CreateUserDto } from './dto/create-user.dto';
 import { User } from './models/user.model';
-import { E_EMAIL_EXISTS } from 'src/common/constants.text';
+import {
+  E_EMAIL_EXISTS,
+  E_INCORRECT_CREDENTIALS,
+} from 'src/common/constants.text';
 import { LoginDto } from './dto/login.dto';
 
 @Injectable()
@@ -20,7 +23,7 @@ export class AuthService {
   }
 
   async register(dto: CreateUserDto): Promise<{ data: User }> {
-    const userExists = await this.authModel.findOne({ email: dto.email });
+    const userExists = await this.findOneByEmail(dto.email);
     if (userExists) throw new HttpException(E_EMAIL_EXISTS, 409);
 
     const data = await this.authModel.create(dto);
@@ -29,7 +32,20 @@ export class AuthService {
     return { data };
   }
 
-  async login(dto: LoginDto) {
-    return dto;
+  async login(dto: LoginDto): Promise<{ data: User; token: string }> {
+    const data = await this.authModel
+      .findOne({ email: dto.email })
+      .select('+password');
+
+    if (!data || !(await data?.validatePassword(dto.password))) {
+      throw new HttpException(E_INCORRECT_CREDENTIALS, 400);
+    }
+    const token = await this.signToken(data); /* sign token */
+    data.password = undefined; /*remove password from user object*/
+    return { data, token };
+  }
+
+  async findOneByEmail(email: string): Promise<User> {
+    return this.authModel.findOne({ email: email });
   }
 }
