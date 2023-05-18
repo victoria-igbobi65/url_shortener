@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { UrlModule } from './url/url.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { UrlModule } from './url/url.module';
       useNewUrlParser: true,
     }),
     UrlModule,
+    AuthModule,
   ],
   controllers: [],
   providers: [],
