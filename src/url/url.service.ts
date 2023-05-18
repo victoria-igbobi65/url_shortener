@@ -11,7 +11,6 @@ import {
   E_LONG_URL_NOT_EXISTS,
 } from 'src/common/constants.text';
 import { RequestInfo } from './models/request-info.model';
-import { GetLinkDto } from './dto/get-link-info.dto';
 import { Connection } from './interface/response';
 
 @Injectable()
@@ -60,7 +59,7 @@ export class UrlService {
     return await data.save();
   }
 
-  async findone(id: GetLinkDto): Promise<Connection> {
+  async findone(id: string): Promise<Connection> {
     const data = await this.UrlModel.findOne({ _id: id });
     if (!data) {
       throw new HttpException(E_LONG_URL_NOT_EXISTS, 404);
