@@ -3,56 +3,37 @@ import {
   Get,
   Post,
   Body,
-  Patch,
   Param,
-  Delete,
   Res,
   Req,
+  UseGuards,
 } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
+import { Request, Response } from 'express';
+
 import { UrlService } from './url.service';
 import { CreateUrlDto } from './dto/create-url.dto';
-import { Request, Response } from 'express';
 import { GetLinkDto } from './dto/get-link-info.dto';
+import { CurrentUser } from 'src/auth/decorator/current-user.decorator';
+import { User } from 'src/auth/models/user.model';
 
-@Controller('url')
+@UseGuards(AuthGuard('jwt'))
+@Controller('/url')
 export class UrlController {
   constructor(private readonly urlService: UrlService) {}
 
   @Post()
-  create(@Body() createUrlDto: CreateUrlDto) {
-    return this.urlService.create(createUrlDto);
+  create(@Body() createUrlDto: CreateUrlDto, @CurrentUser() user: User) {
+    return this.urlService.create(createUrlDto, user._id);
   }
 
   @Get()
-  findAll() {
-    return this.urlService.findAll();
+  findAll(@CurrentUser() user: User) {
+    return this.urlService.findAll(user._id);
   }
 
   @Get(':id')
-  async GetUrlInfo(@Param() { id }: GetLinkDto) {
-    return this.urlService.findone(id);
-  }
-
-  @Get(':shortCode')
-  async handleRedirect(
-    @Param('shortCode') shortCode: string,
-    @Res() res: Response,
-    @Req() req: Request,
-  ): Promise<void> {
-    const ip = req.ip,
-      agent = req.headers['user-agent'];
-
-    const url = await this.urlService.getLongUrl(shortCode, ip, agent);
-    return res.redirect(301, url.longUrl);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string) {
-    return this.urlService.update(+id);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.urlService.remove(+id);
+  async GetUrlInfo(@Param() { id }: GetLinkDto, @CurrentUser() user: User) {
+    return this.urlService.findone(id, user._id);
   }
 }
