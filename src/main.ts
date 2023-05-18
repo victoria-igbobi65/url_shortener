@@ -21,7 +21,7 @@ async function bootstrap() {
     }),
   );
 
-  app.setGlobalPrefix('api/v1');
+  //app.setGlobalPrefix('api/v1');
   app.useGlobalFilters(new GlobalExceptionFilter());
   app.useGlobalPipes(new ValidationPipe({ whitelist: true, transform: true }));
   await app.listen(CONFIG.PORT);
