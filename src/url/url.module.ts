@@ -15,5 +15,6 @@ import { RequestInfo, RequestInfoschema } from './models/request-info.model';
   ],
   controllers: [UrlController],
   providers: [UrlService],
+  exports: [UrlService],
 })
 export class UrlModule {}
