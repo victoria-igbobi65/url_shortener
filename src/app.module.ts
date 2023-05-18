@@ -3,6 +3,8 @@ import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { UrlModule } from './url/url.module';
 import { AuthModule } from './auth/auth.module';
+import { RedirectController } from './redirect/redirect.controller';
+import { RedirectModule } from './redirect/redirect.module';
 
 @Module({
   imports: [
@@ -16,8 +18,9 @@ import { AuthModule } from './auth/auth.module';
     }),
     UrlModule,
     AuthModule,
+    RedirectModule,
   ],
-  controllers: [],
+  controllers: [RedirectController],
   providers: [],
 })
 export class AppModule {}
