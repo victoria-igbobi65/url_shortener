@@ -20,14 +20,12 @@ export class UrlService {
     @InjectModel(RequestInfo.name) private RequestModel: Model<RequestInfo>,
   ) {}
 
-  async create(url: CreateUrlDto): Promise<{ data: Url }> {
-    const existingUrl = await this.getmappingByLongURl(url.longUrl);
+  async create(url: CreateUrlDto, userId: string): Promise<{ data: Url }> {
+    const existingUrl = await this.getmappingByLongURl(url.longUrl, userId);
 
     /*Checks if longUrl has been shortened before*/
     if (existingUrl) throw new HttpException(E_LONG_URL_EXISTS, 409);
-
-    /*Generate unique id for new long url*/
-    const uniqueId = nanoid();
+    const uniqueId = nanoid(); /*Generate unique id for new long url*/
     const shortenedUrl = `${CONFIG.BASE_URL}/${uniqueId}`;
 
     /*save the long url with its new short url to the db*/
@@ -35,13 +33,14 @@ export class UrlService {
       longUrl: url.longUrl,
       shortUrl: shortenedUrl,
       shortId: uniqueId,
+      ownerId: userId,
     });
-
     return { data };
   }
 
-  findAll() {
-    return `This action returns all url`;
+  async findAll(userId: string): Promise<{ data: Url[]; count: number }> {
+    const data = await this.UrlModel.find({ ownerId: userId });
+    return { count: data.length, data };
   }
 
   async getLongUrl(shortId: string, ip: string, agent: string) {
@@ -59,8 +58,8 @@ export class UrlService {
     return await data.save();
   }
 
-  async findone(id: string): Promise<Connection> {
-    const data = await this.UrlModel.findOne({ _id: id });
+  async findone(id: string, userId: string): Promise<Connection> {
+    const data = await this.UrlModel.findOne({ _id: id, ownerId: userId });
     if (!data) {
       throw new HttpException(E_LONG_URL_NOT_EXISTS, 404);
     }
@@ -68,14 +67,7 @@ export class UrlService {
     return { data, count: urlRequestInfo.length, reqInfo: urlRequestInfo };
   }
 
-  update(id: number) {
-    return `This action updates a #${id} url`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} url`;
-  }
-  async getmappingByLongURl(longUrl: string) {
-    return this.UrlModel.findOne({ longUrl }).exec();
+  async getmappingByLongURl(longUrl: string, userId: string) {
+    return this.UrlModel.findOne({ longUrl, ownerId: userId }).exec();
   }
 }
