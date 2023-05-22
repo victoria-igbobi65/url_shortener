@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
+
 import { UrlModule } from './url/url.module';
 import { AuthModule } from './auth/auth.module';
-import { RedirectController } from './redirect/redirect.controller';
 import { RedirectModule } from './redirect/redirect.module';
 
 @Module({
@@ -20,7 +20,7 @@ import { RedirectModule } from './redirect/redirect.module';
     AuthModule,
     RedirectModule,
   ],
-  controllers: [RedirectController],
+  controllers: [],
   providers: [],
 })
 export class AppModule {}
