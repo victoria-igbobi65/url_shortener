@@ -4,12 +4,12 @@ import {
   Post,
   Body,
   Param,
-  Res,
-  Req,
   UseGuards,
+  Res,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
-import { Request, Response } from 'express';
+import { Response } from 'express';
+import * as qrcode from 'qrcode';
 
 import { UrlService } from './url.service';
 import { CreateUrlDto } from './dto/create-url.dto';
@@ -18,13 +18,24 @@ import { CurrentUser } from 'src/auth/decorator/current-user.decorator';
 import { User } from 'src/auth/models/user.model';
 
 @UseGuards(AuthGuard('jwt'))
-@Controller('/url')
+@Controller('url')
 export class UrlController {
   constructor(private readonly urlService: UrlService) {}
 
   @Post()
   create(@Body() createUrlDto: CreateUrlDto, @CurrentUser() user: User) {
     return this.urlService.create(createUrlDto, user._id);
+  }
+
+  @Post('qrcode')
+  async createQr(
+    @Body() dto: CreateUrlDto,
+    @CurrentUser() user: User,
+    @Res() res: Response,
+  ): Promise<void> {
+    const url = (await this.urlService.create(dto, user._id)).data.shortUrl;
+    const data = await qrcode.toDataURL(url);
+    res.json({ data });
   }
 
   @Get()
