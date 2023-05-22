@@ -60,9 +60,8 @@ export class UrlService {
 
   async findone(id: string, userId: string): Promise<Connection> {
     const data = await this.UrlModel.findOne({ _id: id, ownerId: userId });
-    if (!data) {
-      throw new HttpException(E_LONG_URL_NOT_EXISTS, 404);
-    }
+    if (!data) throw new HttpException(E_LONG_URL_NOT_EXISTS, 404);
+
     const urlRequestInfo = await this.RequestModel.find({ url_id: id }).exec();
     return { data, count: urlRequestInfo.length, reqInfo: urlRequestInfo };
   }
