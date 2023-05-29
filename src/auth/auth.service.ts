@@ -8,7 +8,7 @@ import { User } from './models/user.model';
 import {
   E_EMAIL_EXISTS,
   E_INCORRECT_CREDENTIALS,
-} from 'src/common/constants.text';
+} from '../common/constants.text';
 import { LoginDto } from './dto/login.dto';
 
 @Injectable()
