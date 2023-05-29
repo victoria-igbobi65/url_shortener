@@ -9,7 +9,7 @@ import { Url } from './models/url.model';
 import {
   E_LONG_URL_EXISTS,
   E_LONG_URL_NOT_EXISTS,
-} from 'src/common/constants.text';
+} from '../common/constants.text';
 import { RequestInfo } from './models/request-info.model';
 import { Connection } from './interface/response';
 
