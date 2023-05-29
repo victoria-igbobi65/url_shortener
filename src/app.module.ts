@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, CacheModule } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 
@@ -11,6 +11,7 @@ import { RedirectModule } from './redirect/redirect.module';
     ConfigModule.forRoot({
       isGlobal: true,
     }),
+    CacheModule.register({ isGlobal: true }),
     MongooseModule.forRoot(`${process.env.DB_URL}`, {
       dbName: process.env.DB_NAME,
       useUnifiedTopology: true,
