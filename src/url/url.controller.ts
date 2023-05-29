@@ -14,8 +14,8 @@ import * as qrcode from 'qrcode';
 import { UrlService } from './url.service';
 import { CreateUrlDto } from './dto/create-url.dto';
 import { GetLinkDto } from './dto/get-link-info.dto';
-import { CurrentUser } from 'src/auth/decorator/current-user.decorator';
-import { User } from 'src/auth/models/user.model';
+import { CurrentUser } from '../auth/decorator/current-user.decorator';
+import { User } from '../auth/models/user.model';
 
 @UseGuards(AuthGuard('jwt'))
 @Controller('url')
