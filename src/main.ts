@@ -6,7 +6,7 @@ import 'dotenv/config';
 import { AppModule } from './app.module';
 import CONFIG from './common/config/config';
 import { E_TOO_MANY_REQUEST } from './common/constants.text';
-import { GlobalExceptionFilter } from './filters/global-exception.filter';
+import { GlobalExceptionFilter } from './common/filters/global-exception.filter';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, { cors: true });
@@ -21,7 +21,6 @@ async function bootstrap() {
     }),
   );
 
-  //app.setGlobalPrefix('api/v1');
   app.useGlobalFilters(new GlobalExceptionFilter());
   app.useGlobalPipes(new ValidationPipe({ whitelist: true, transform: true }));
   await app.listen(CONFIG.PORT);
