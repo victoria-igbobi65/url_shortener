@@ -1,6 +1,6 @@
 import { Controller, Param, Res, Req, Get } from '@nestjs/common';
 import { Request, Response } from 'express';
-import { UrlService } from 'src/url/url.service';
+import { UrlService } from '../url/url.service';
 
 @Controller()
 export class RedirectController {
