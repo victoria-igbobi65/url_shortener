@@ -1,13 +1,16 @@
 import { Prop, SchemaFactory, Schema } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 import * as bcrypt from 'bcryptjs';
+import { ApiProperty } from '@nestjs/swagger';
 
 @Schema()
 export class User extends Document {
   @Prop({ required: true, unique: true })
+  @ApiProperty()
   email: string;
 
   @Prop({ required: true })
+  @ApiProperty()
   name: string;
 
   @Prop({ required: true, select: false })
