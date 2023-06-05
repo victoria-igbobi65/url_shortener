@@ -29,7 +29,7 @@ export class UrlService {
 
     /*Checks if longUrl has been shortened before*/
     if (existingUrl) throw new HttpException(E_LONG_URL_EXISTS, 409);
-    const uniqueId = nanoid(); /*Generate unique id for new long url*/
+    const uniqueId = nanoid(5); /*Generate unique id for new long url*/
     const shortenedUrl = `${CONFIG.BASE_URL}/${uniqueId}`;
 
     /*save the long url with its new short url to the db*/
