@@ -35,20 +35,20 @@ this is a custom url shortener that allows user customize and shorten their long
 - Login
 
 ---
-### Shorten Long Url
+### ```java Shorten Long Url ```
  It allows users to shorten their long Urls by pasting the long Url to the server and a shorter Url gets automatically generated. The shortened Url is designed to be as short as possible, making it easy for users to share on social media or through other channels.
 
-### Custom Url <!--This Feature is currently not available  -->
+### ```java Custom Url ``` <!--This Feature is currently not available  -->
 
  It also allows users to customize their their shortened Urls. Users can choose their own custom domain name and customize the Url to reflect their brand or content. This feature is particularly useful for individuals or small businesses who want to create branded linksfor their brands.
 
-### QR Code Generation 
+### ```java QR Code Generation ``` 
  This platform allows users to also generate Qr codes for the shortened Urls. Users can download the QR code image and use it in their promotional materials or website.
 
-### Analytics
+### ```java Analytics ```
  This platform provides basic analytics that allows users to track their shortened Urls performance. users can see how many clicks their shortened Urls has recieved and where the clicks are coming from.
 
-### Link History
+### ```java Link History ```
  This platform allows users to see the history of links they've created so they can easily find and reuse links they've previously created. 
 
 ## Contributors
