@@ -1,6 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { rateLimit } from 'express-rate-limit';
 import { ValidationPipe } from '@nestjs/common';
+import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import 'dotenv/config';
 
 import { AppModule } from './app.module';
@@ -23,6 +24,16 @@ async function bootstrap() {
 
   app.useGlobalFilters(new GlobalExceptionFilter());
   app.useGlobalPipes(new ValidationPipe({ whitelist: true, transform: true }));
+
+  /* Swagger Documentation */
+  const config = new DocumentBuilder()
+    .setTitle('URL Shortener')
+    .setDescription('The URL shortener description')
+    .setVersion('1.0')
+    .addTag('Url')
+    .build();
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('api', app, document);
   await app.listen(CONFIG.PORT);
 }
 bootstrap();
