@@ -11,7 +11,11 @@ import {
   E_LONG_URL_NOT_EXISTS,
 } from '../common/constants.text';
 import { RequestInfo } from './models/request-info.model';
-import { Connection } from './interface/response';
+import {
+  Connection,
+  CreateUrlInterface,
+  UrlAllInterface,
+} from './interface/response';
 
 @Injectable()
 export class UrlService {
@@ -20,7 +24,7 @@ export class UrlService {
     @InjectModel(RequestInfo.name) private RequestModel: Model<RequestInfo>,
   ) {}
 
-  async create(url: CreateUrlDto, userId: string): Promise<{ data: Url }> {
+  async create(url: CreateUrlDto, userId: string): Promise<CreateUrlInterface> {
     const existingUrl = await this.getmappingByLongURl(url.longUrl, userId);
 
     /*Checks if longUrl has been shortened before*/
@@ -38,7 +42,7 @@ export class UrlService {
     return { data };
   }
 
-  async findAll(userId: string): Promise<{ data: Url[]; count: number }> {
+  async findAll(userId: string): Promise<UrlAllInterface> {
     const data = await this.UrlModel.find({ ownerId: userId });
     return { count: data.length, data };
   }
