@@ -10,6 +10,7 @@ import {
   E_INCORRECT_CREDENTIALS,
 } from '../common/constants.text';
 import { LoginDto } from './dto/login.dto';
+import { AuthResponse } from './interface/auth.interface';
 
 @Injectable()
 export class AuthService {
@@ -32,7 +33,7 @@ export class AuthService {
     return { data };
   }
 
-  async login(dto: LoginDto): Promise<{ data: User; token: string }> {
+  async login(dto: LoginDto): Promise<AuthResponse> {
     const data = await this.authModel
       .findOne({ email: dto.email })
       .select('+password');
