@@ -1,7 +1,9 @@
 import { Controller, Param, Res, Req, Get } from '@nestjs/common';
 import { Request, Response } from 'express';
 import { UrlService } from '../url/url.service';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('redirect')
 @Controller()
 export class RedirectController {
   constructor(private readonly urlService: UrlService) {}
