@@ -21,7 +21,7 @@ this is a custom url shortener that allows user customize and shorten their long
 
 ## Useful Links.
 
-- [Swagger Documentation]()
+- [Swagger Documentation](https://tame-rose-adder-ring.cyclic.app/api)
 - [Hosted Api](https://tame-rose-adder-ring.cyclic.app
 )
 
