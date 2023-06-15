@@ -16,7 +16,6 @@ import { RedirectModule } from './redirect/redirect.module';
       isGlobal: true,
     }),
     MongooseModule.forRoot(`${process.env.DB_URL}`, {
-      dbName: process.env.DB_NAME,
       useUnifiedTopology: true,
       useNewUrlParser: true,
     }),
