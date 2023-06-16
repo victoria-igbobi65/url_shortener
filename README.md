@@ -21,11 +21,47 @@ this is a custom url shortener that allows user customize and shorten their long
 
 ## Useful Links.
 
-- [Swagger Documentation](https://tame-rose-adder-ring.cyclic.app/api)
-- [Hosted Api](https://tame-rose-adder-ring.cyclic.app
-)
+- [Swagger Documentation](https://vic-nb5a.onrender.com/api)
+- [Hosted Api](https://vic-nb5a.onrender.com)
 
 ---
+
+## Installation
+Firstly, you need to clone the repository into your local machine
+```javascript
+$ git clone https://github.com/victoria-igbobi65/url_shortener.git
+```
+
+Secondly, change directory into the project directory
+```javascript
+$ cd url_shortener
+```
+
+Thirdly, you need to install the project dependencies.
+```javascript
+$ npm i
+```
+
+Fourthly, you need to create a `.env` file and copy the `.env.example` file to it.
+```javascript
+$ cp .env.example .env
+```
+
+Finally, you need to run the server.
+```java
+$ npm run start
+```
+
+## Testing
+To run unit test, 
+```javascript
+$ npm run test:watch
+```
+
+To run E2E tests,
+```javascript
+$ npm run test:e2e
+```
 
 ## Features
 - Shorten Long Url
