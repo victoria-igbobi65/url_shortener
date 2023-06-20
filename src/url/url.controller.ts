@@ -27,7 +27,7 @@ import { User } from '../auth/models/user.model';
 import {
   E_LONG_URL_EXISTS,
   E_LONG_URL_NOT_EXISTS,
-} from 'src/common/constants.text';
+} from '../../src/common/constants.text';
 import {
   CreateUrlInterface,
   QrUrlInterface,
