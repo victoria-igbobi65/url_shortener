@@ -4,8 +4,8 @@ import * as request from 'supertest';
 import { Model } from 'mongoose';
 import 'dotenv/config';
 
-import { User } from 'src/auth/models/user.model';
-import { Url } from 'src/url/models/url.model';
+import { User } from '../src/auth/models/user.model';
+import { Url } from '../src/url/models/url.model';
 import { AppModule } from '../src/app.module';
 import {
   H_FAKE_SHORTURL,
