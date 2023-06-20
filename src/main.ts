@@ -11,16 +11,18 @@ import { GlobalExceptionFilter } from './common/filters/global-exception.filter'
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, { cors: true });
-  app.use(
-    rateLimit({
-      windowMs: 10 * 60 * 1000,
-      max: 100,
-      standardHeaders: true,
-      legacyHeaders: false,
-      skipSuccessfulRequests: false,
-      message: { message: E_TOO_MANY_REQUEST, statusCode: 403 },
-    }),
-  );
+
+  // Rate limiting pending
+  // app.use(
+  //   rateLimit({
+  //     windowMs: 10 * 60 * 1000,
+  //     max: 100,
+  //     standardHeaders: true,
+  //     legacyHeaders: false,
+  //     skipSuccessfulRequests: false,
+  //     message: { message: E_TOO_MANY_REQUEST, statusCode: 403 },
+  //   }),
+  // );
 
   app.useGlobalFilters(new GlobalExceptionFilter());
   app.useGlobalPipes(new ValidationPipe({ whitelist: true, transform: true }));
