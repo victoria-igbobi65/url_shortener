@@ -3,7 +3,7 @@ import { HttpStatus, INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
 import { Model } from 'mongoose';
 
-import { User } from 'src/auth/models/user.model';
+import { User } from '../src/auth/models/user.model';
 import { AppModule } from '../src/app.module';
 import { E_INCORRECT_CREDENTIALS } from '../src/common/constants.text';
 
