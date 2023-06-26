@@ -6,12 +6,13 @@ import {
   Param,
   UseGuards,
   Res,
+  Delete,
+  HttpCode,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { Response } from 'express';
 import * as qrcode from 'qrcode';
 import {
-  ApiConflictResponse,
   ApiCreatedResponse,
   ApiNotFoundResponse,
   ApiOkResponse,
@@ -24,10 +25,7 @@ import { CreateUrlDto } from './dto/create-url.dto';
 import { GetLinkDto } from './dto/get-link-info.dto';
 import { CurrentUser } from '../auth/decorator/current-user.decorator';
 import { User } from '../auth/models/user.model';
-import {
-  E_LONG_URL_EXISTS,
-  E_LONG_URL_NOT_EXISTS,
-} from '../../src/common/constants.text';
+import { E_LONG_URL_NOT_EXISTS } from 'src/common/constants.text';
 import {
   CreateUrlInterface,
   QrUrlInterface,
@@ -43,15 +41,13 @@ export class UrlController {
 
   @Post()
   @ApiCreatedResponse({ type: CreateUrlInterface })
-  @ApiConflictResponse({ description: E_LONG_URL_EXISTS })
   @ApiUnauthorizedResponse({ description: 'Unauthorized' })
-  create(@Body() createUrlDto: CreateUrlDto, @CurrentUser() user: User) {
+  async create(@Body() createUrlDto: CreateUrlDto, @CurrentUser() user: User) {
     return this.urlService.create(createUrlDto, user._id);
   }
 
   @Post('qrcode')
   @ApiOkResponse({ type: QrUrlInterface })
-  @ApiConflictResponse({ description: E_LONG_URL_EXISTS })
   @ApiUnauthorizedResponse({ description: 'Unauthorized' })
   async createQr(
     @Body() dto: CreateUrlDto,
@@ -76,5 +72,11 @@ export class UrlController {
   @ApiNotFoundResponse({ description: E_LONG_URL_NOT_EXISTS })
   async GetUrlInfo(@Param() { id }: GetLinkDto, @CurrentUser() user: User) {
     return this.urlService.findone(id, user._id);
+  }
+
+  @Delete(':id')
+  @HttpCode(204)
+  async DeleteUrl(@Param() { id }: GetLinkDto, @CurrentUser() user: User) {
+    return this.urlService.deleteShortenedUrl(id, user._id);
   }
 }
