@@ -14,6 +14,7 @@ import { Response } from 'express';
 import * as qrcode from 'qrcode';
 import {
   ApiCreatedResponse,
+  ApiNoContentResponse,
   ApiNotFoundResponse,
   ApiOkResponse,
   ApiTags,
@@ -76,6 +77,8 @@ export class UrlController {
 
   @Delete(':id')
   @HttpCode(204)
+  @ApiNoContentResponse({ description: 'No body returned for response' })
+  @ApiNotFoundResponse({ description: E_LONG_URL_NOT_EXISTS })
   async DeleteUrl(@Param() { id }: GetLinkDto, @CurrentUser() user: User) {
     return this.urlService.deleteShortenedUrl(id, user._id);
   }
