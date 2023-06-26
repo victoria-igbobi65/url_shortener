@@ -1,4 +1,4 @@
-import { IsDefined, IsString, IsUrl } from 'class-validator';
+import { IsDefined, IsOptional, IsString, IsUrl } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateUrlDto {
@@ -7,4 +7,10 @@ export class CreateUrlDto {
   @IsString()
   @IsUrl()
   longUrl: string;
+
+  @ApiProperty()
+  @IsOptional()
+  @IsDefined()
+  @IsString()
+  name: string;
 }
