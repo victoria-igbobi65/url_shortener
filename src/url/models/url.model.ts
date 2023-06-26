@@ -9,6 +9,10 @@ export class Url extends Document {
   longUrl: string;
 
   @ApiProperty()
+  @Prop({ default: null })
+  name: string;
+
+  @ApiProperty()
   @Prop({ required: true })
   shortUrl: string;
 
