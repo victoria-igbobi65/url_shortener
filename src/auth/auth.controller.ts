@@ -14,7 +14,7 @@ import { User } from './models/user.model';
 import {
   E_EMAIL_EXISTS,
   E_INCORRECT_CREDENTIALS,
-} from '../../src/common/constants.text';
+} from 'src/common/constants.text';
 import { AuthResponse } from './interface/auth.interface';
 
 @ApiTags('auth')
