@@ -21,6 +21,10 @@ export class Url extends Document {
   shortId: string;
 
   @ApiProperty()
+  @Prop({ default: null })
+  qrlink: string;
+
+  @ApiProperty()
   @Prop({ type: MongooseSchema.Types.ObjectId, required: true })
   ownerId: MongooseSchema.Types.ObjectId;
 
