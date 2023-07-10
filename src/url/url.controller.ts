@@ -57,6 +57,12 @@ export class UrlController {
   ): Promise<void> {
     const url = (await this.urlService.create(dto, user._id)).data.shortUrl;
     const data = await qrcode.toDataURL(url);
+    const document = await this.urlService.getmappingByLongURl(
+      dto.longUrl,
+      user._id,
+    );
+    document.qrlink = data; // add the qrcode to the document
+    document.save(); // save updated document
     res.json({ data });
   }
 
